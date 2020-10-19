@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Insert from './components/Insert/Insert';
+import Search from './components/Search/Search';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { insert: true }
+    this.clicky = this.clicky.bind(this);
+  }
+  
+  clicky() {
+    this.setState(prevState => ({
+      insert: !prevState.insert
+    }));
+  }
+
+
+
+  render() {
+    return (
+      <div className="app">
+        <div className="toggle__header">
+          <div className="toggle">
+            <button onClick={this.clicky} disabled={this.state.insert}>Search</button>
+            <button onClick={this.clicky} disabled={!this.state.insert}>Insert</button>
+          </div>
+        </div>
+        
+
+      {
+        this.state.insert ? 
+        (<div className="app__insert">
+          <Insert />
+          </div>)
+        :
+        (<div className="search">
+          <Search />
+          </div>)
+      }
+      </div>
+      
+    );
+  }
+  
 }
 
 export default App;
